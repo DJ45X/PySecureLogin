@@ -2,19 +2,10 @@ import mysql.connector
 import os
 from dotenv import load_dotenv
 import bcrypt
-
-# DB Connection Configuration
-load_dotenv()
-
-db_config = {
-    'host': '192.168.0.110',
-    'database': 'pySecureDB',
-    'user': 'TestUserDB',
-    'password': 'MyTestPassword',
-}
+from Utilities import db_functions
 
 def login(username, password):
-    connection = mysql.connector.connect(**db_config)
+    connection = db_functions.connection()
     cursor = connection.cursor()
     cursor.execute("SELECT password_hash, salt FROM users WHERE username = %s", (username,))
     result = cursor.fetchone()

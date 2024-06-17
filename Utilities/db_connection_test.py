@@ -2,21 +2,12 @@ import mysql.connector
 from mysql.connector import Error
 import os
 from dotenv import load_dotenv
-
-# DB Connection Configuration
-load_dotenv()
-
-db_config = {
-    'user': os.getenv('DB_USERNAME'),
-    'password': os.getenv('DB_PASSWORD'),
-    'host': os.getenv('DB_HOST'),
-    'database': os.getenv('DB_DATABASE')
-}
+from Utilities import db_functions
 
 def connect_to_mariadb():
     connection = None
     try:
-        connection = mysql.connector.connect(**db_config)
+        connection = db_functions.connection()
 
         if connection.is_connected():
             db_info = connection.get_server_info()

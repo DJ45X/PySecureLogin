@@ -1,19 +1,15 @@
 import mysql.connector
 import os
 from dotenv import load_dotenv
+from Utilities import db_functions
 
-# DB Connection Configuration
 load_dotenv()
-
 db_config = {
-    'user': os.getenv('DB_USERNAME'),
-    'password': os.getenv('DB_PASSWORD'),
-    'host': os.getenv('DB_HOST'),
     'database': os.getenv('DB_DATABASE')
 }
 
 def initialize_db():
-    connection = mysql.connector.connect(**db_config)
+    connection = db_functions.connection()
     cursor = connection.cursor()
 
     # Check if the users table exists
