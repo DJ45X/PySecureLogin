@@ -44,4 +44,4 @@ There are 2 scripts that can be used for testing. While both are utilized automa
 - `db_init.py` will initialize the databse, checking if the 'users' table exists, creating it if it doesn't with the proper fields.
 ___
 ### Future Ideas
-I plan to explore other methods to password encryption such as peppering and other hashing methods like bcrypt. OAuth is another implementation that would be worth exploring in the future. 
+I plan to explore other methods to password encryption such as peppering and other hashing methods similar to bcrypt. OAuth is another implementation that would be worth exploring in the future. 
