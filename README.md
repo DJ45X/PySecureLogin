@@ -1,12 +1,13 @@
-# Welcome to my Secure Login Project! [Work in Progress]
+# Welcome to my Secure Login Project!
 ___
 
-This python project will demonstrate my knowledge and understanding of password encryption and secure database storing using salting and hashing methods through bcrypt. This application is purposely designed to run in command line instead of having a fully built website created so as to enhance focus on the primary objective of password encryption and securely storing in a database.
+This Python project showcases my proficiency in password encryption and secure database storage techniques using salting and hashing methods with bcrypt. Designed as a command-line application rather than a full-fledged website, the project prioritizes a focused exploration of password security principles. By implementing bcrypt for hashing passwords and incorporating salting to mitigate common vulnerabilities, this project underscores the importance of robust password management practices in safeguarding user credentials.
+
+Future additions may include password peppering to further demonstrate more complex password encryption methods.
 
 **Technologies used include:**
 - Python
 - Bcrypt
-- MySQL
-- Docker
+- SQL (MariaDB was used in my environment)
 
-This project is open freely to all to try out, improve, or use.
+This project is released under the MIT License, granting everyone the freedom to use, modify, and distribute the code as they see fit.
