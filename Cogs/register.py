@@ -58,13 +58,17 @@ def registerUser(username, password):
     
     hashed_password = ph.hash(peppered_password)
 
-    with db_functions.connection() as connection:
-        with connection.cursor() as cursor:
-            try:
-                cursor.execute("INSERT INTO users (username, password_hash) VALUES (%s, %s)", (username, hashed_password))
-                connection.commit()
-                print("User Registered Successfully!")
-            except mysql.connector.errors.IntegrityError:
-                print("User already exists!")
-            finally:
-                connection.close()
+    try:
+        with db_functions.connection() as connection:
+            with connection.cursor() as cursor:
+                try:
+                    query = "INSERT INTO users (username, password_hash) VALUES (%s, %s)"
+                    cursor.execute(query, (username, hashed_password))
+                    connection.commit()
+                    print("User Registered Successfully!")
+                except mysql.connector.errors.IntegrityError:
+                    print("User already exists!")
+                finally:
+                    connection.close()
+    except mysql.connector.Error as err:
+        print(f"Error connecting to database! See: {err}")
