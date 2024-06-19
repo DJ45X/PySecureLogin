@@ -1,6 +1,5 @@
 import mysql.connector
-from argon2 import PasswordHasher
-import argon2
+from argon2 import PasswordHasher, low_level
 from Utilities import db_functions
 import re
 from dotenv import load_dotenv
@@ -53,17 +52,19 @@ def registerUser(username, password):
         memory_cost=1048576,
         parallelism=4,
         hash_len=32,
-        type=argon2.low_level.Type.ID,
+        type=low_level.Type.ID,
         salt_len=16
     )
     
     hashed_password = ph.hash(peppered_password)
 
-    try:
-        cursor.execute("INSERT INTO users (username, password_hash) VALUES (%s, %s)", (username, hashed_password))
-        connection.commit()
-        print("User Registered Successfully!")
-    except mysql.connector.errors.IntegrityError:
-        print("User already exists!")
-    finally:
-        connection.close()
+    with db_functions.connection() as connection:
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute("INSERT INTO users (username, password_hash) VALUES (%s, %s)", (username, hashed_password))
+                connection.commit()
+                print("User Registered Successfully!")
+            except mysql.connector.errors.IntegrityError:
+                print("User already exists!")
+            finally:
+                connection.close()
