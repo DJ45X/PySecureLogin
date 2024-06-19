@@ -1,5 +1,6 @@
 from Utilities import db_connection_test, db_init
 from Cogs import register, login
+import re
 
 def main():
     while True:
@@ -11,11 +12,31 @@ def main():
         if choice == "1":
             username = input("Enter username: ")
             password = input("Enter password: ")
+
+            username_regex = r'^[a-zA-Z0-9_]{3,20}$'
+            while not re.match(username_regex, username):
+                print("Username must be between 3 and 20 characters long and can only contain letters, numbers, and underscores")
+                username = input("Enter username: ")
+
+            # Sanitize user input
+            username = username.strip()
+            
             register.registerUser(username, password)
+
         elif choice == "2":
             username = input("Enter username: ")
             password = input("Enter password: ")
+
+            username_regex = r'^[a-zA-Z0-9_]{3,20}$'
+            # validate username
+            while not re.match(username_regex, username):
+                print("Username must be between 3 and 20 characters long and can only contain letters, numbers, and underscores")
+                username = input("Enter username: ")
+            # Sanitize user input
+            username = username.strip()
+
             login.loginUser(username, password)
+            
         elif choice == "3":
             break
         else:
