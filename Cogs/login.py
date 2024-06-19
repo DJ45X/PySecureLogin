@@ -10,7 +10,8 @@ def loginUser(username, password):
     cursor = connection.cursor()
 
     try:
-        cursor.execute("SELECT password_hash FROM users WHERE username = %s", (username,))
+        query = "SELECT password_hash FROM users WHERE username = %s"
+        cursor.execute(query, (username,))
         result = cursor.fetchone()
 
         if result:
