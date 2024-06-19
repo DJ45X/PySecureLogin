@@ -14,9 +14,6 @@ def loginUser(username, password):
         result = cursor.fetchone()
 
         if result:
-            # fetch the password hash
-            stored_hashed = result[0]
-
             pepper = getenv('PEPPER')
             if not pepper:
                 raise ValueError("Pepper environment variable not set")
@@ -28,7 +25,7 @@ def loginUser(username, password):
             ph = PasswordHasher()
 
             # verify the hash directly without storing it
-            if ph.verify(stored_hashed, peppered_password):
+            if ph.verify(result[0], peppered_password):
                 print("Login successful!")
             else:
                 print("Incorrect password. Please try again.")
