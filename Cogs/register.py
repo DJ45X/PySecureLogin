@@ -1,16 +1,25 @@
 import mysql.connector
-import bcrypt
+from argon2 import PasswordHasher
+import argon2
 from Utilities import db_functions
 
-def create_user(username, password):
+def registerUser(username, password):
     connection = db_functions.connection()
     cursor = connection.cursor()
 
-    salt = bcrypt.gensalt().decode('utf-8')
-    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt.encode('utf-8')).decode('utf-8')
+    ph = PasswordHasher(
+        time_cost=1,
+        memory_cost=1048576,
+        parallelism=4,
+        hash_len=32,
+        type=argon2.low_level.Type.ID,
+        salt_len=16
+    )
+    
+    hashed_password = ph.hash(password)
 
     try:
-        cursor.execute("INSERT INTO users (username, password_hash, salt) VALUES (%s, %s, %s)", (username, hashed_password, salt))
+        cursor.execute("INSERT INTO users (username, password_hash) VALUES (%s, %s)", (username, hashed_password))
         connection.commit()
         print("User Registered Successfully!")
     except mysql.connector.errors.IntegrityError:

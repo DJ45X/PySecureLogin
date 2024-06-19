@@ -11,11 +11,11 @@ def main():
         if choice == "1":
             username = input("Enter username: ")
             password = input("Enter password: ")
-            register.create_user(username, password)
+            register.registerUser(username, password)
         elif choice == "2":
             username = input("Enter username: ")
             password = input("Enter password: ")
-            login.login(username, password)
+            login.loginUser(username, password)
         elif choice == "3":
             break
         else:

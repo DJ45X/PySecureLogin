@@ -1,16 +1,22 @@
-import bcrypt
 from Utilities import db_functions
+from argon2 import PasswordHasher
 
-def login(username, password):
+def loginUser(username, password):
     connection = db_functions.connection()
     cursor = connection.cursor()
-    cursor.execute("SELECT password_hash, salt FROM users WHERE username = %s", (username,))
+
+    cursor.execute("SELECT password_hash FROM users WHERE username = %s", (username,))
+
     result = cursor.fetchone()
     connection.close()
 
+    ph = PasswordHasher() 
+
     if result:
-        stored_hashed_password, salt = result
-        if bcrypt.checkpw(password.encode('utf-8'), stored_hashed_password.encode('utf-8')):
+        stored_hashed = result[0]
+
+        # verify hash
+        if ph.verify(stored_hashed, password):
             print("Login successful!")
         else:
             print("Incorrect password. Please try again.")
