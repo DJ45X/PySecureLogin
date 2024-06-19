@@ -43,3 +43,8 @@ There are 2 scripts that can be used for testing. While both are utilized automa
 ___
 ## Future Ideas
 I plan to explore other methods to password encryption such as peppering and other hashing methods similar to bcrypt. Implementation of OAuth is also a potential avenue for exploration. Other methods for better security may include password polocies.
+___
+## Branches
+**main** | Contains the first iteration of this project. Will remain and server as my frame of reference on where I started.
+
+**argon2id** | Will contain any and all updates and improvements as I progress with understanding password hashing and secure methodologies
